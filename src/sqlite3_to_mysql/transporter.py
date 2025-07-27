@@ -707,14 +707,17 @@ class SQLite3toMySQL(SQLite3toMySQLAttributes):
 
                 # create the table
                 if self._mysql_create_tables:
+                    print(f"creating table {table["name"]}")
                     self._create_table(table["name"], transfer_rowid=transfer_rowid)
 
                 # truncate the table on request
                 if self._mysql_truncate_tables:
+                    print(f"truncating table {table["name"]}")
                     self._truncate_table(table["name"])
 
                 # get the size of the data
                 if self._mysql_transfer_data:
+                    print(f"getting count of {table["name"]}")
                     self._sqlite_cur.execute(f'SELECT COUNT(*) AS total_records FROM "{table["name"]}"')
                     total_records = int(dict(self._sqlite_cur.fetchone())["total_records"])
                 else:
